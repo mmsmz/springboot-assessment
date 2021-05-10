@@ -5,7 +5,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "transactiondetails")
-public class TransferAccountEntity {
+public class TransactionDetailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
