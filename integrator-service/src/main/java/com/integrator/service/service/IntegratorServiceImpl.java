@@ -19,12 +19,15 @@ public class IntegratorServiceImpl implements IntegratorService{
     @Autowired
     TransactionDetailRepository transactionDetailRepository;
 
+    // Use Try Catch
+
     @Override
     public  double  getAccountBalanceByAccountNo(Integer accountNo) {
         UserAccountEntity userAccountEntity =  userAccountRepository.getAccountBalanceByAccountNo(accountNo);
         double totalRecevierAmt =userAccountRepository.getTransferredAmtByReceiver(accountNo);
         double totalSenderAmt =userAccountRepository.getTransferredAmtBySender(accountNo);
         double depositAmt = userAccountRepository.getTransferredAmtByDeposit(accountNo);
+
        return (userAccountEntity.getBalanceAmount() + totalRecevierAmt + depositAmt) - totalSenderAmt ;
     }
 
@@ -38,12 +41,14 @@ public class IntegratorServiceImpl implements IntegratorService{
         transactionDetailDto.setTransferredAmount(transactionDetailEntity.getTransferredAmount());
         transactionDetailDto.setDateTime(transactionDetailEntity.getDateTime());
         transactionDetailRepository.save(transactionDetailEntity);
+
         return transactionDetailDto;
 
     }
 
     @Override
     public TransactionDetailDto makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount) {
+
         return null;
     }
 }

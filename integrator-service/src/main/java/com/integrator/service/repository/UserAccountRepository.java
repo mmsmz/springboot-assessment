@@ -11,12 +11,12 @@ public interface UserAccountRepository extends JpaRepository<UserAccountEntity,I
     @Query(value = "select sum(transactiondetails.transferred_amt)" +
             " from transactiondetails " +
             "where transactiondetails.sender_acc = ?1", nativeQuery = true)
-    double getTransferredAmtBySender(Integer sender_acc);
+    double getTransferredAmtBySender(Integer senderAcctNo);
 
     @Query(value = "select sum(transactiondetails.transferred_amt)" +
             " from transactiondetails " +
             "where transactiondetails.receiver_acc = ?1", nativeQuery = true)
-    double getTransferredAmtByReceiver(Integer receiver_acc);
+    double getTransferredAmtByReceiver(Integer receiverAcctNo);
 
     @Query(value = "select sum(transactiondetails.transferred_amt)" +
             " from transactiondetails " +
