@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface IntegratorService {
-    List<UserAccountEntity> getAccountBalanceByAccountNo(Integer accountNo);
+    double getAccountBalanceByAccountNo(Integer accountNo);
 //    double getAccountBalanceByAccountNo(Integer accountNo);
 
 }

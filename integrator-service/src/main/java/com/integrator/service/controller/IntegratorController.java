@@ -13,13 +13,13 @@ public class IntegratorController {
 /*
 1. Get account balance of particular account
 2. Get total account balance
-3. Make a fund transfer to own accounts
-4. Make a fund transfer to other accounts
+3. Make a fund transfer to own accounts ->>only myaccountno
+4. Make a fund transfer to other accounts ->> sender==myaccount and the recieversAccount
 */
     @Autowired
     private IntegratorService integratorService;
 
-    @GetMapping("/getAccByAccountNo/{accNo}")
+    @GetMapping("/getAccountBalanceByAccountNo/{accNo}")
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable(name = "accNo") Integer accountNo){
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage("Success");
@@ -27,14 +27,8 @@ public class IntegratorController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-
-
     @GetMapping("/getTotalAccountBalance")
     public String getTotalAccountBalance(){
         return "Hello World";
     }
-
-
-
-
 }

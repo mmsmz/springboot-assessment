@@ -17,14 +17,12 @@ public class IntegratorServiceImpl implements IntegratorService{
     @Autowired
     TransactionDetailRepository transactionDetailRepository;
 
-
     @Override
-    public  List<UserAccountEntity>  getAccountBalanceByAccountNo(Integer accountNo) {
-        List<UserAccountEntity> userAccEntityList = userAccountRepository.getAccountBalanceByAccountNo(accountNo);
-//        UserAccountDto userAccountDto = new UserAccountDto();
-//        userAccountDto.setUserId(userAccountEntity.getBalanceAmount());
-        return userAccountRepository.getAccountBalanceByAccountNo(accountNo);
+    public  double  getAccountBalanceByAccountNo(Integer accountNo) {
+        UserAccountEntity userAccountEntity =  userAccountRepository.getAccountBalanceByAccountNo(accountNo);
+        double totalRecevierAmt =userAccountRepository.getTransferredAmtByReceiver(accountNo);
+        double totalSenderAmt =userAccountRepository.getTransferredAmtBySender(accountNo);
+        double depositAmt = userAccountRepository.getTransferredAmtByDeposit(accountNo);
+       return (userAccountEntity.getBalanceAmount() + totalRecevierAmt + depositAmt) - totalSenderAmt ;
     }
-
-
 }
