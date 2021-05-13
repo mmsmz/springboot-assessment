@@ -10,9 +10,6 @@ import javax.persistence.Table;
 public class UserAccountEntity {
 
     @Id
-    @Column(name = "usraccid")
-    private Integer accountId;
-
     @Column(name = "userid")
     private String userId;
 
@@ -21,14 +18,6 @@ public class UserAccountEntity {
 
     @Column(name = "current_balance")
     private long balanceAmount;
-
-    public Integer getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
 
     public String getUserId() {
         return userId;

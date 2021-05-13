@@ -5,10 +5,7 @@ import com.integrator.service.service.IntegratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(name = "integratorService")
@@ -22,14 +19,15 @@ public class IntegratorController {
     @Autowired
     private IntegratorService integratorService;
 
-    @GetMapping("/getAccountBalanceByAccountNo")
-    public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@RequestParam Integer accountNo){
-
+    @GetMapping("/getAccByAccountNo/{accNo}")
+    public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable(name = "accNo") Integer accountNo){
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage("Success");
         responseDto.setData(integratorService.getAccountBalanceByAccountNo(accountNo));
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+
 
     @GetMapping("/getTotalAccountBalance")
     public String getTotalAccountBalance(){
