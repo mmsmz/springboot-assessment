@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionDetailRepository extends JpaRepository<TransactionDetailEntity, Integer> {
 
-
     TransactionDetailEntity findBySenderAccountNo(Integer senderAccountNo);
+
     TransactionDetailEntity findByReceiverAccountNo(Integer receiverAccountNo);
 
 }
