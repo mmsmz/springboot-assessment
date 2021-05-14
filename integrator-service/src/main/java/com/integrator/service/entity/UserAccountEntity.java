@@ -10,13 +10,13 @@ import javax.persistence.Table;
 public class UserAccountEntity {
 
     @Id
-    @Column(name = "userid")
+    @Column(name = "user_Id")
     private String userId;
 
-    @Column(name = "accountno")
+    @Column(name = "account_No")
     private Integer accountNo;
 
-    @Column(name = "current_balance")
+    @Column(name = "balance")
     private long balanceAmount;
 
     public String getUserId() {

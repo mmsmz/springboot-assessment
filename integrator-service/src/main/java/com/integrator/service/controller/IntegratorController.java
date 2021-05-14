@@ -24,9 +24,6 @@ public class IntegratorController {
 
     @GetMapping("/getAccountBalanceByAccountNo/{accountNo}")
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable Integer accountNo){
-        String asd = "ASd";
-        String as = "ASd";
-        String as1d = "ASd";
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.getAccountBalanceByAccountNo(accountNo));
@@ -37,7 +34,7 @@ public class IntegratorController {
     public ResponseEntity<ResponseDto> getTotalAcctBalanceByUserId(@PathVariable String userId){
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
-//      responseDto.setData();
+        responseDto.setData(integratorService.getTotalAcctBalanceByUserId(userId));
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
@@ -62,12 +59,8 @@ public class IntegratorController {
 
 
     @GetMapping("/test")
-    public String testingAPI(String asd){
-        String asdasd = "4898790";
-        String asdaasdsd = "4898790";
-        String asdssasd = "4898790";
-        asd = "Hello World";
-        return asd;
+    public String testingAPI(){
+        return "Hello World";
     }
 
 }

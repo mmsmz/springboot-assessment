@@ -12,13 +12,13 @@ public class TransactionDetailEntity {
     @Column(name = "td_Id")
     private Integer transactionId;
 
-    @Column(name = "sender_acc")
+    @Column(name = "sender_Acct_No")
     private Integer senderAccountNo;
 
-    @Column(name = "receiver_acc")
+    @Column(name = "receiver_Acct_No")
     private Integer receiverAccountNo;
 
-    @Column(name = "transferred_amt")
+    @Column(name = "transferred_Amt")
     private Double transferredAmount;
 
     @Column(name = "date_Time")
