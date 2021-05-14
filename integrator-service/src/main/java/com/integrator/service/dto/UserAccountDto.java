@@ -1,6 +1,5 @@
 package com.integrator.service.dto;
 
-import org.omg.CORBA.INTERNAL;
 
 import java.util.List;
 

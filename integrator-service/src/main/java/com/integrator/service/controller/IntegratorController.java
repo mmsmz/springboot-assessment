@@ -58,9 +58,9 @@ public class IntegratorController {
     }
 
 
-    @GetMapping("/test")
-    public String testingAPI(){
-        return "Hello World";
-    }
+//    @GetMapping("/test")
+//    public String testingAPI(){
+//        return "Hello World";
+//    }
 
 }

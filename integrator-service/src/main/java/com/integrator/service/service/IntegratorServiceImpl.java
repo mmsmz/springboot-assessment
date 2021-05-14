@@ -31,7 +31,6 @@ public class IntegratorServiceImpl implements IntegratorService{
 //        double totalRecevierAmt =userAccountRepository.getTransferredAmtByReceiver(accountNo);
 //        double totalSenderAmt =userAccountRepository.getTransferredAmtBySender(accountNo);
 //        double depositAmt = userAccountRepository.getTransferredAmtByDeposit(accountNo);
-//
 //       return (userAccountEntity.getBalanceAmount() + totalRecevierAmt + depositAmt) - totalSenderAmt ;
 
         return (userAccountEntity.getBalanceAmount() + userAccountRepository.getTransferredAmtByReceiver(accountNo) + userAccountRepository.getTransferredAmtByDeposit(accountNo)) - userAccountRepository.getTransferredAmtBySender(accountNo) ;
