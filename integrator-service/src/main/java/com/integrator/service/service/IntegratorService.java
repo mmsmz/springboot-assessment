@@ -5,6 +5,8 @@ import com.integrator.service.dto.TransactionDetailDto;
 import com.integrator.service.dto.UserAccountDto;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public interface IntegratorService {
     String getAccountBalanceByAccountNo(Integer accountNo);
@@ -14,5 +16,7 @@ public interface IntegratorService {
     TransactionDetailDto makeFundTransferOwnAccount(Integer receiverAcctNo, double depositedAmount);
 
     TransactionDetailDto makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount);
+
+    void saveAPIForAudit(String apiName, String paramWithValue);
 
 }

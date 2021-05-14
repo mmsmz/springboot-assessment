@@ -1,6 +1,11 @@
 package com.integrator.service.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "audit_events")
@@ -14,12 +19,15 @@ public class AuditEventsEntity {
     @Column(name = "api_Name")
     private String api_Name;
 
+    //    @Column(name = "Param_Value")
+//    @ElementCollection
+//    @Column(name = "Param_Value")
+//    @ElementCollection(targetClass=String.class)
     @Column(name = "Param_Value")
-    private String ParamsWithValue;
+    private String paramsWithValue;
 
     @Column(name = "date_Time")
     private Instant dateTime;
-
 
     public Integer getAudit_Id() {
         return audit_Id;
@@ -38,11 +46,11 @@ public class AuditEventsEntity {
     }
 
     public String getParamsWithValue() {
-        return ParamsWithValue;
+        return paramsWithValue;
     }
 
     public void setParamsWithValue(String paramsWithValue) {
-        ParamsWithValue = paramsWithValue;
+        this.paramsWithValue = paramsWithValue;
     }
 
     public Instant getDateTime() {

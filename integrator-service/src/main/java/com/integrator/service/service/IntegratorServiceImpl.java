@@ -3,7 +3,6 @@ package com.integrator.service.service;
 import com.integrator.service.dto.TransactionDetailDto;
 import com.integrator.service.dto.UserAccountDto;
 import com.integrator.service.entity.AuditEventsEntity;
-import com.integrator.service.entity.TransactionDetailEntity;
 import com.integrator.service.entity.UserAccountEntity;
 import com.integrator.service.repository.AuditEventRepository;
 import com.integrator.service.repository.TransactionDetailRepository;
@@ -16,6 +15,7 @@ import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -38,19 +38,13 @@ public class IntegratorServiceImpl implements IntegratorService {
         try {
             UserAccountEntity userAccountEntity = userAccountRepository.getAccountBalanceByAccountNo(accountNo);
 
+            // check whether the accountNo exits
             if (userAccountEntity == null) {
                 return IntegratorCommon.WRONGACCOUNT;
             } else {
                 double totalRecevierAmt = transactionDetailRepository.getTransferredAmtByReceiver(accountNo);
                 double totalSenderAmt = transactionDetailRepository.getTransferredAmtBySender(accountNo);
                 double depositAmt = transactionDetailRepository.getTransferredAmtByDeposit(accountNo);
-
-                // saves API for Audit
-                AuditEventsEntity auditEventsEntity = new AuditEventsEntity();
-                auditEventsEntity.setApi_Name(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO);
-                auditEventsEntity.setParamsWithValue("accountNo = " + accountNo);
-                auditEventsEntity.setDateTime(Instant.now());
-                auditEventRepository.save(auditEventsEntity);
 
                 return Double.toString((userAccountEntity.getBalanceAmount() + totalRecevierAmt + depositAmt) - totalSenderAmt);
             }
@@ -105,4 +99,22 @@ public class IntegratorServiceImpl implements IntegratorService {
         //   TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findByReceiverAccountNo(receiverAcctNo);
         return null;
     }
+
+    @Override
+    public void saveAPIForAudit(String apiName, String paramWithValue) {
+        // saves API for Audit
+       try {
+           AuditEventsEntity auditEventsEntity = new AuditEventsEntity();
+           auditEventsEntity.setApi_Name(apiName);
+           auditEventsEntity.setParamsWithValue(paramWithValue);
+           auditEventsEntity.setDateTime(Instant.now());
+
+           auditEventRepository.save(auditEventsEntity);
+
+       }catch (Exception e){
+            e.getMessage();
+       }
+    }
+
+
 }

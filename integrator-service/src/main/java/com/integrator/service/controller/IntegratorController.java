@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping(name = "integratorService")
 public class IntegratorController {
@@ -18,13 +21,14 @@ public class IntegratorController {
     3. Make a fund transfer to own accounts ->> only receiversaaccountNo + service will add to receiver as well.
     4. Make a fund transfer to other accounts ->> sender==myaccountNo and the recieversAccount
    */
-
-
     @Autowired
     private IntegratorService integratorService;
 
     @GetMapping("/getAccountBalanceByAccountNo/{accountNo}")
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable Integer accountNo){
+        Map<String,String> mapping = new HashMap<>();
+        mapping.put("accountNo ", accountNo.toString());
+        integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, mapping.toString() );
 
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
@@ -42,7 +46,12 @@ public class IntegratorController {
 
     @PostMapping("/makeFundTransferToOwnAccount")
     public ResponseEntity<ResponseDto> makeFundTransferToOwnAccount(@RequestParam Integer receiverAcctNo,
-                                                                  @RequestParam double  depositedAmount){
+                                                                  @RequestParam Double  depositedAmount){
+        Map<String,String> mapping = new HashMap<>();
+        mapping.put("accountNo = ", receiverAcctNo.toString());
+        mapping.put("depositedAmount = ", depositedAmount.toString());
+        integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OWN_ACCT, mapping.toString() );
+
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.makeFundTransferOwnAccount(receiverAcctNo, depositedAmount));
