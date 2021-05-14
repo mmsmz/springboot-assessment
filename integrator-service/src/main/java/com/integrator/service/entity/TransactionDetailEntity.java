@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "transactiondetails")
+@Table(name = "transaction_details")
 public class TransactionDetailEntity {
 
     @Id
@@ -23,7 +23,6 @@ public class TransactionDetailEntity {
 
     @Column(name = "date_Time")
     private Instant dateTime;
-
 
     public Integer getTransactionId() {
         return transactionId;

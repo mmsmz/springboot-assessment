@@ -19,11 +19,13 @@ public class IntegratorController {
     4. Make a fund transfer to other accounts ->> sender==myaccountNo and the recieversAccount
    */
 
+
     @Autowired
     private IntegratorService integratorService;
 
     @GetMapping("/getAccountBalanceByAccountNo/{accountNo}")
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable Integer accountNo){
+
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.getAccountBalanceByAccountNo(accountNo));
@@ -38,7 +40,7 @@ public class IntegratorController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/makeFundTransferOwnAccount")
+    @PostMapping("/makeFundTransferToOwnAccount")
     public ResponseEntity<ResponseDto> makeFundTransferToOwnAccount(@RequestParam Integer receiverAcctNo,
                                                                   @RequestParam double  depositedAmount){
         ResponseDto responseDto = new ResponseDto();

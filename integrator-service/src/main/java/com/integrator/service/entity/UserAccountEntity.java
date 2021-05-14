@@ -17,7 +17,7 @@ public class UserAccountEntity {
     private Integer accountNo;
 
     @Column(name = "balance")
-    private double balanceAmount;
+    private Double balanceAmount;
 
     public String getUserId() {
         return userId;
@@ -35,11 +35,11 @@ public class UserAccountEntity {
         this.accountNo = accountNo;
     }
 
-    public double getBalanceAmount() {
+    public Double getBalanceAmount() {
         return balanceAmount;
     }
 
-    public void setBalanceAmount(double balanceAmount) {
+    public void setBalanceAmount(Double balanceAmount) {
         this.balanceAmount = balanceAmount;
     }
 }

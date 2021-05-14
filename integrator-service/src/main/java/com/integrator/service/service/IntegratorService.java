@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface IntegratorService {
-    double getAccountBalanceByAccountNo(Integer accountNo);
+    String getAccountBalanceByAccountNo(Integer accountNo);
 
     UserAccountDto getTotalAcctBalanceByUserId(String userId);
 
