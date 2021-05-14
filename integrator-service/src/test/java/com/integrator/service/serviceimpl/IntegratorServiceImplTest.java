@@ -18,7 +18,7 @@ public class IntegratorServiceImplTest {
     IntegratorServiceImpl integratorService;
 
     @Mock
-    UserAccountRepository userAccountRepository;
+    UserAccountRepository userAccountRepository = spy(UserAccountRepository.class);
 
     @Test
     public void testGetAccountBalanceByAccountNo(){
@@ -29,12 +29,11 @@ public class IntegratorServiceImplTest {
         userAccountEntity.setAccountNo(123456789);
         userAccountEntity.setBalanceAmount(85000);
 
-
         Mockito.when(userAccountRepository.getAccountBalanceByAccountNo(accountNo)).thenReturn(userAccountEntity);
 
-        Mockito.when(userAccountRepository.getTransferredAmtByReceiver(accountNo)).thenReturn((double) 100);
-        Mockito.when(userAccountRepository.getTransferredAmtBySender(accountNo)).thenReturn((double) 200);
-        Mockito.when(userAccountRepository.getTransferredAmtByDeposit(accountNo)).thenReturn((double) 300);
+//      Mockito.when(userAccountRepository.getTransferredAmtByReceiver(accountNo)).thenReturn((double) 100);
+//      Mockito.when(userAccountRepository.getTransferredAmtBySender(accountNo)).thenReturn((double) 200);
+//      Mockito.when(userAccountRepository.getTransferredAmtByDeposit(accountNo)).thenReturn((double) 300);
         integratorService.getAccountBalanceByAccountNo(accountNo);
     }
 

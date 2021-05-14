@@ -26,7 +26,6 @@ public class IntegratorServiceImpl implements IntegratorService{
 
     @Override
     public  double  getAccountBalanceByAccountNo(Integer accountNo) {
-        String asd = "asd";
         UserAccountEntity userAccountEntity =  userAccountRepository.getAccountBalanceByAccountNo(accountNo);
 //        double totalRecevierAmt =userAccountRepository.getTransferredAmtByReceiver(accountNo);
 //        double totalSenderAmt =userAccountRepository.getTransferredAmtBySender(accountNo);
