@@ -1,12 +1,18 @@
 package com.integrator.service.dto;
 
+import org.omg.CORBA.INTERNAL;
+
+import java.util.List;
+
 public class UserAccountDto {
 
     private String userId;
 
-    private Integer accountNo;
+//    private Integer accountNo;
 
-    private long balanceAmount;
+    private double balanceAmount;
+
+    private List<Integer> listOfAccountNo;
 
     public String getUserId() {
         return userId;
@@ -16,19 +22,27 @@ public class UserAccountDto {
         this.userId = userId;
     }
 
-    public Integer getAccountNo() {
-        return accountNo;
-    }
+//    public Integer getAccountNo() {
+//        return accountNo;
+//    }
+//
+//    public void setAccountNo(Integer accountNo) {
+//        this.accountNo = accountNo;
+//    }
 
-    public void setAccountNo(Integer accountNo) {
-        this.accountNo = accountNo;
-    }
-
-    public long getBalanceAmount() {
+    public double getBalanceAmount() {
         return balanceAmount;
     }
 
-    public void setBalanceAmount(long balanceAmount) {
+    public void setBalanceAmount(double balanceAmount) {
         this.balanceAmount = balanceAmount;
+    }
+
+    public List<Integer> getListOfAccountNo() {
+        return listOfAccountNo;
+    }
+
+    public void setListOfAccountNo(List<Integer> listOfAccountNo) {
+        this.listOfAccountNo = listOfAccountNo;
     }
 }

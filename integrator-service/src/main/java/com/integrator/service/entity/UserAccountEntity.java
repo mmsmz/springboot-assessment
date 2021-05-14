@@ -9,15 +9,15 @@ import javax.persistence.Table;
 @Table(name = "user_account")
 public class UserAccountEntity {
 
-    @Id
     @Column(name = "user_Id")
     private String userId;
 
+    @Id
     @Column(name = "account_No")
     private Integer accountNo;
 
     @Column(name = "balance")
-    private long balanceAmount;
+    private double balanceAmount;
 
     public String getUserId() {
         return userId;
@@ -35,11 +35,11 @@ public class UserAccountEntity {
         this.accountNo = accountNo;
     }
 
-    public long getBalanceAmount() {
+    public double getBalanceAmount() {
         return balanceAmount;
     }
 
-    public void setBalanceAmount(long balanceAmount) {
+    public void setBalanceAmount(double balanceAmount) {
         this.balanceAmount = balanceAmount;
     }
 }

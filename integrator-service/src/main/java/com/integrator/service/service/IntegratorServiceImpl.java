@@ -9,6 +9,7 @@ import com.integrator.service.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,22 +26,37 @@ public class IntegratorServiceImpl implements IntegratorService{
 
     @Override
     public  double  getAccountBalanceByAccountNo(Integer accountNo) {
+        String asd = "asd";
         UserAccountEntity userAccountEntity =  userAccountRepository.getAccountBalanceByAccountNo(accountNo);
-        double totalRecevierAmt =userAccountRepository.getTransferredAmtByReceiver(accountNo);
-        double totalSenderAmt =userAccountRepository.getTransferredAmtBySender(accountNo);
-        double depositAmt = userAccountRepository.getTransferredAmtByDeposit(accountNo);
+//        double totalRecevierAmt =userAccountRepository.getTransferredAmtByReceiver(accountNo);
+//        double totalSenderAmt =userAccountRepository.getTransferredAmtBySender(accountNo);
+//        double depositAmt = userAccountRepository.getTransferredAmtByDeposit(accountNo);
+//
+//       return (userAccountEntity.getBalanceAmount() + totalRecevierAmt + depositAmt) - totalSenderAmt ;
 
-       return (userAccountEntity.getBalanceAmount() + totalRecevierAmt + depositAmt) - totalSenderAmt ;
+        return (userAccountEntity.getBalanceAmount() + userAccountRepository.getTransferredAmtByReceiver(accountNo) + userAccountRepository.getTransferredAmtByDeposit(accountNo)) - userAccountRepository.getTransferredAmtBySender(accountNo) ;
     }
 
     @Override
     public UserAccountDto getTotalAcctBalanceByUserId(String userId) {
 
         List<UserAccountEntity> userAccountEntity = userAccountRepository.findByUserId(userId);
+        double accountBalance =0;
+        double totalAccountBalance = 0;
+        List<Integer> accountList = new ArrayList<>();
 
+        for (UserAccountEntity accountNos: userAccountEntity) {
+            accountBalance = accountNos.getBalanceAmount();
+            totalAccountBalance += accountBalance;
+            accountList.add(accountNos.getAccountNo());
+        }
 
+        UserAccountDto userAccountDto = new UserAccountDto();
+        userAccountDto.setUserId(userId);
+        userAccountDto.setListOfAccountNo(accountList);
+        userAccountDto.setBalanceAmount(totalAccountBalance);
 
-        return null;
+        return userAccountDto;
     }
 
 
