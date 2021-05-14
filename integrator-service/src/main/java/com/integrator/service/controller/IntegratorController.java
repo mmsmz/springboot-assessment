@@ -26,9 +26,7 @@ public class IntegratorController {
 
     @GetMapping("/getAccountBalanceByAccountNo/{accountNo}")
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable Integer accountNo){
-        Map<String,String> mapping = new HashMap<>();
-        mapping.put("accountNo ", accountNo.toString());
-        integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, mapping.toString() );
+        integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, accountNo.toString());
 
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
@@ -38,6 +36,7 @@ public class IntegratorController {
 
     @GetMapping("/getTotalAcctBalanceByUserId/{userId}")
     public ResponseEntity<ResponseDto> getTotalAcctBalanceByUserId(@PathVariable String userId){
+        integratorService.saveAPIForAudit(IntegratorCommon.GET_TOTALACCT_BALANCE_BY_USERID, userId);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.getTotalAcctBalanceByUserId(userId));
@@ -67,7 +66,6 @@ public class IntegratorController {
         responseDto.setData(integratorService.makeFundTransferToOtherAccount(senderAcctNo, receiverAcctNo, depositedAmount));
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
-
 
 //    @GetMapping("/test")
 //    public String testingAPI(){

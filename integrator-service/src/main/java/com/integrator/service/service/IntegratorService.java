@@ -1,11 +1,8 @@
 package com.integrator.service.service;
 
 
-import com.integrator.service.dto.TransactionDetailDto;
 import com.integrator.service.dto.UserAccountDto;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public interface IntegratorService {
@@ -13,9 +10,9 @@ public interface IntegratorService {
 
     UserAccountDto getTotalAcctBalanceByUserId(String userId);
 
-    TransactionDetailDto makeFundTransferOwnAccount(Integer receiverAcctNo, double depositedAmount);
+    String makeFundTransferOwnAccount(Integer receiverAcctNo, double depositedAmount);
 
-    TransactionDetailDto makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount);
+    String makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount);
 
     void saveAPIForAudit(String apiName, String paramWithValue);
 

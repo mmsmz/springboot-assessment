@@ -27,7 +27,7 @@ public class IntegratorControllerTest {
 
         @Test
         public void makeFundTransferToOwnAccount(){
-                integratorController.makeFundTransferToOwnAccount(456123,132456135);
+                integratorController.makeFundTransferToOwnAccount(456123,132456135d);
         }
 
         @Test

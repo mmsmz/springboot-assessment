@@ -44,4 +44,14 @@ public class TransactionDetailDto {
     public void setDateTime(Instant dateTime) {
         this.dateTime = dateTime;
     }
+
+    @Override
+    public String toString() {
+        return "TransactionDetailDto{" +
+                "senderAccountNo=" + senderAccountNo +
+                ", receiverAccountNo=" + receiverAccountNo +
+                ", transferredAmount=" + transferredAmount +
+                ", dateTime=" + dateTime +
+                '}';
+    }
 }
