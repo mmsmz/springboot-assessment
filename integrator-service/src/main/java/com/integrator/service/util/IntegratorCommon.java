@@ -26,19 +26,9 @@ public interface IntegratorCommon {
 
     String ACCOUNT_DOESNT_EXISTS = "You don't have a account!!!";
 
-//    @GetMapping("/getAccountBalanceByAccountNo/{accountNo}")
-//    @PathVariable Integer accountNo
+    String TRANSFERRED_SUCCESSFULLY = "Transferred Amount Successfully";
 
-
-//    @GetMapping("/getTotalAcctBalanceByUserId/{userId}")
-//    @PathVariable String userId)
-//
-//    @PostMapping("/makeFundTransferOwnAccount")
-//    @RequestParam Integer receiverAcctNo, @RequestParam double  depositedAmount){
-//
-//    @PostMapping("/makeFundTransferToOtherAccount")
-//    @RequestParam Integer senderAcctNo, @RequestParam Integer receiverAcctNo,@RequestParam double  depositedAmount){
-//
+    String INSUFFICIENT_ACCT_BALANCE = "You don't have sufficient amount in the account";
 
 
 

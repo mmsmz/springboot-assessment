@@ -90,17 +90,13 @@ public class IntegratorServiceImpl implements IntegratorService {
             if (userAccountEntity == null) {
                 return IntegratorCommon.ACCOUNT_DOESNT_EXISTS;
             } else {
-            //  TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findBySenderAccountNo(receiverAcctNo);
+
                 TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
                 transactionDetailEntity.setSenderAccountNo(receiverAcctNo);
                 transactionDetailEntity.setReceiverAccountNo(receiverAcctNo);
                 transactionDetailEntity.setTransferredAmount(depositedAmount);
                 transactionDetailEntity.setDateTime(Instant.now());
                 transactionDetailRepository.save(transactionDetailEntity);
-
-                // user account need to be updated with the transferred amount
-               // userAccountEntity.setBalanceAmount(userAccountEntity.getBalanceAmount() + depositedAmount);
-                // userAccountRepository.save(userAccountEntity);
 
                 return "Deposited Successfully into your accountNo " + receiverAcctNo + "Balance Amount " + depositedAmount;
             }
@@ -117,20 +113,19 @@ public class IntegratorServiceImpl implements IntegratorService {
         // checks whether you have money in account to transfer
         String senders_balanceAmount = getAccountBalanceByAccountNo(senderAcctNo);
 
-        if(Double.parseDouble(senders_balanceAmount)>=depositedAmount) {
+        if(depositedAmount<=Double.parseDouble(senders_balanceAmount)) {
             TransactionDetailEntity transactionEntity = new TransactionDetailEntity();
             transactionEntity.setSenderAccountNo(senderAcctNo);
             transactionEntity.setReceiverAccountNo(receiverAcctNo);
             transactionEntity.setTransferredAmount(depositedAmount);
             transactionEntity.setDateTime(Instant.now());
             transactionDetailRepository.save(transactionEntity);
-            return "Transferred To Other Account Successfully";
+            return IntegratorCommon.TRANSFERRED_SUCCESSFULLY;
 
         }
         else {
-            return "You don't have sufficient amount in the account";
+            return IntegratorCommon.INSUFFICIENT_ACCT_BALANCE;
         }
-
 
     }
 

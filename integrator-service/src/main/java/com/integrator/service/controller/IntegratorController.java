@@ -21,6 +21,7 @@ public class IntegratorController {
     3. Make a fund transfer to own accounts ->> only receiversaaccountNo + service will add to receiver as well.
     4. Make a fund transfer to other accounts ->> sender==myaccountNo and the recieversAccount
    */
+
     @Autowired
     private IntegratorService integratorService;
 
