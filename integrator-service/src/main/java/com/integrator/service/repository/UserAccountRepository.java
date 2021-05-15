@@ -13,8 +13,13 @@ public interface UserAccountRepository extends JpaRepository<UserAccountEntity,I
     @Query(value = "SELECT * FROM user_account WHERE account_No=?1", nativeQuery = true)
     UserAccountEntity getAccountBalanceByAccountNo(Integer account);
 
+    @Query(value = "SELECT user_account.account_No FROM user_account WHERE user_account.user_Id=?1", nativeQuery = true)
+    List<Integer> getAccountNosByUserId(String userId);
+
     List<UserAccountEntity> findByUserId(String userId);
 
 //    UserAccountEntity findByAccountNo(Integer accountNo);
+
+
 }
 

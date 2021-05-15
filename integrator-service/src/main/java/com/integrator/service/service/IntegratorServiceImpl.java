@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.DoubleUnaryOperator;
 
 @Service
 @Transactional
@@ -56,28 +58,17 @@ public class IntegratorServiceImpl implements IntegratorService {
     /**
      * get total amount from all account numbers for a specific user
      * Param userId
-     * return total amount with the list of accounts details
+     * return total Balance from number of accounts based on the userId
      * */
     @Override
-    public UserAccountDto getTotalAcctBalanceByUserId(String userId) {
+    public double getTotalAcctBalanceByUserId(String userId) {
 
-        List<UserAccountEntity> userAccountEntity = userAccountRepository.findByUserId(userId);
-        double accountBalance = 0;
-        double totalAccountBalance = 0;
-        List<Integer> accountList = new ArrayList<>();
-
-        for (UserAccountEntity accountNos : userAccountEntity) {
-            accountBalance = accountNos.getBalanceAmount();
-            totalAccountBalance += accountBalance;
-            accountList.add(accountNos.getAccountNo());
-        }
-
-        UserAccountDto userAccountDto = new UserAccountDto();
-        userAccountDto.setUserId(userId);
-        userAccountDto.setListOfAccountNo(accountList);
-        userAccountDto.setBalanceAmount(totalAccountBalance);
-
-        return userAccountDto;
+       List<Integer> list = userAccountRepository.getAccountNosByUserId(userId);
+       double finalResult = 0;
+       for (Integer totalBalance : list){
+           finalResult = finalResult + Double.parseDouble(getAccountBalanceByAccountNo(totalBalance));
+       }
+        return finalResult;
     }
 
 

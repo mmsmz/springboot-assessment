@@ -28,8 +28,7 @@ public class IntegratorController {
     @GetMapping(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO)
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable Integer accountNo){
         // saves API with parameters for Audit Events
-        integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, accountNo.toString());
-
+       // integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, accountNo.toString());
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.getAccountBalanceByAccountNo(accountNo));

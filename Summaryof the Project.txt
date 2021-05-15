@@ -1,4 +1,4 @@
-DummyCoreBanking-Service  ->> localhost:9900
+DummyCoreBanking-Service  ->> localhost:9900 
 
 Integrator-Service   	  ->> localhost:9901 + Swagger ->> http://localhost:9901/swagger-ui.html#/
 
