@@ -39,10 +39,12 @@ public class IntegratorServiceImpl implements IntegratorService {
             if (userAccountEntity == null) {
                 return IntegratorCommon.WRONGACCOUNT;
             } else {
+                // Note: we can directly return without creating object, i have apply to make it clear for understanding
                 double totalRecevierAmt = transactionDetailRepository.getTransferredAmtByReceiver(accountNo);
                 double totalSenderAmt = transactionDetailRepository.getTransferredAmtBySender(accountNo);
-                double depositAmt = transactionDetailRepository.getTransferredAmtByDeposit(accountNo);
 
+                // own account depositAmt
+                double depositAmt = transactionDetailRepository.getTransferredAmtByDeposit(accountNo);
                 return Double.toString((userAccountEntity.getBalanceAmount() + totalRecevierAmt + depositAmt) - totalSenderAmt);
             }
         } catch (Exception e) {
@@ -90,7 +92,6 @@ public class IntegratorServiceImpl implements IntegratorService {
             if (userAccountEntity == null) {
                 return IntegratorCommon.ACCOUNT_DOESNT_EXISTS;
             } else {
-
                 TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
                 transactionDetailEntity.setSenderAccountNo(receiverAcctNo);
                 transactionDetailEntity.setReceiverAccountNo(receiverAcctNo);

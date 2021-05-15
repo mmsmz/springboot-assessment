@@ -9,7 +9,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class IntegratorServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IntegratorServiceApplication.class, args);
+	    SpringApplication.run(IntegratorServiceApplication.class, args);
 	}
 
 }

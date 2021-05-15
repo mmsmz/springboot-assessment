@@ -1,3 +1,20 @@
 DummyCoreBanking-Service  ->> localhost:9900
-Integrator-Service   	  ->> localhost:9901 + Swagger ->> 
-	
+
+Integrator-Service   	  ->> localhost:9901 + Swagger ->> http://localhost:9901/swagger-ui.html#/
+
+1. /getAccountBalanceByAccountNo/{accountNo} 
+
+Request::
+accountNo = 147852369
+
+Response::
+{
+  "message": "Success",
+  "data": "43500.0"
+}
+
+2. /getTotalAcctBalanceByUserId/{userId}
+
+Request::
+userID= 222
+
