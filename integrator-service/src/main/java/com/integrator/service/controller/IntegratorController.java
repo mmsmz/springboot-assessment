@@ -24,8 +24,9 @@ public class IntegratorController {
     @Autowired
     private IntegratorService integratorService;
 
-    @GetMapping("/getAccountBalanceByAccountNo/{accountNo}")
+    @GetMapping(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO)
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable Integer accountNo){
+        // saves API with parameters for Audit Events
         integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, accountNo.toString());
 
         ResponseDto responseDto = new ResponseDto();
@@ -34,22 +35,22 @@ public class IntegratorController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/getTotalAcctBalanceByUserId/{userId}")
+    @GetMapping(IntegratorCommon.GET_TOTALACCT_BALANCE_BY_USERID)
     public ResponseEntity<ResponseDto> getTotalAcctBalanceByUserId(@PathVariable String userId){
-        integratorService.saveAPIForAudit(IntegratorCommon.GET_TOTALACCT_BALANCE_BY_USERID, userId);
+      //  integratorService.saveAPIForAudit(IntegratorCommon.GET_TOTALACCT_BALANCE_BY_USERID, userId);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.getTotalAcctBalanceByUserId(userId));
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/makeFundTransferToOwnAccount")
+    @PostMapping(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OWN_ACCT)
     public ResponseEntity<ResponseDto> makeFundTransferToOwnAccount(@RequestParam Integer receiverAcctNo,
                                                                   @RequestParam Double  depositedAmount){
         Map<String,String> mapping = new HashMap<>();
         mapping.put("accountNo = ", receiverAcctNo.toString());
         mapping.put("depositedAmount = ", depositedAmount.toString());
-        integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OWN_ACCT, mapping.toString() );
+       // integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OWN_ACCT, mapping.toString());
 
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
@@ -57,10 +58,17 @@ public class IntegratorController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/makeFundTransferToOtherAccount")
+    @PostMapping(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OTHER_ACCT)
     public ResponseEntity<ResponseDto> makeFundTransferToOtherAccount(@RequestParam Integer senderAcctNo,
                                                                       @RequestParam Integer receiverAcctNo,
-                                                                    @RequestParam double  depositedAmount){
+                                                                    @RequestParam Double  depositedAmount){
+
+        Map<String,String> mapping = new HashMap<>();
+        mapping.put("senderAcctNo = ", senderAcctNo.toString());
+        mapping.put("receiverAcctNo = ", receiverAcctNo.toString());
+        mapping.put("depositedAmount = ", depositedAmount.toString());
+       // integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OTHER_ACCT, mapping.toString());
+
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.makeFundTransferToOtherAccount(senderAcctNo, receiverAcctNo, depositedAmount));

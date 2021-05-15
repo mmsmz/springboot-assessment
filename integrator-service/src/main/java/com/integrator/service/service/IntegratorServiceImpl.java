@@ -1,6 +1,5 @@
 package com.integrator.service.service;
 
-import com.integrator.service.dto.TransactionDetailDto;
 import com.integrator.service.dto.UserAccountDto;
 import com.integrator.service.entity.AuditEventsEntity;
 import com.integrator.service.entity.TransactionDetailEntity;
@@ -11,7 +10,6 @@ import com.integrator.service.repository.UserAccountRepository;
 import com.integrator.service.util.IntegratorCommon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -29,8 +27,6 @@ public class IntegratorServiceImpl implements IntegratorService {
 
     @Autowired
     AuditEventRepository auditEventRepository;
-
-    // Use Try Catch
 
     @Override
     public String getAccountBalanceByAccountNo(Integer accountNo) {
@@ -51,7 +47,6 @@ public class IntegratorServiceImpl implements IntegratorService {
         } catch (Exception e) {
             return e.getMessage();
         }
-
         //  return (userAccountEntity.getBalanceAmount() + userAccountRepository.getTransferredAmtByReceiver(accountNo) + userAccountRepository.getTransferredAmtByDeposit(accountNo)) - userAccountRepository.getTransferredAmtBySender(accountNo) ;
     }
 
@@ -88,29 +83,43 @@ public class IntegratorServiceImpl implements IntegratorService {
 
         UserAccountEntity userAccountEntity = userAccountRepository.getAccountBalanceByAccountNo(receiverAcctNo);
         // checks whether you have an account in the bank
-        // deposits to the account and the balance needs to be updated
+        // deposits to the transaction account and the balance needs to be updated
         // adds a record in the transaction table and also add a record in the userAccount table
-        if (userAccountEntity == null) {
-            return "You dont have a account!!";
-        } else {
-            TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findByReceiverAccountNo(receiverAcctNo);
-            TransactionDetailDto transactionDetailDto = new TransactionDetailDto();
-            transactionDetailDto.setReceiverAccountNo(transactionDetailEntity.getReceiverAccountNo());
-            transactionDetailDto.setSenderAccountNo(transactionDetailEntity.getReceiverAccountNo());
-            transactionDetailDto.setTransferredAmount(transactionDetailEntity.getTransferredAmount());
-            transactionDetailDto.setDateTime(transactionDetailEntity.getDateTime());
-            transactionDetailRepository.save(transactionDetailEntity);
-            return transactionDetailDto.toString();
+        try {
+            if (userAccountEntity == null) {
+                return IntegratorCommon.ACCOUNT_DOESNT_EXISTS;
+            } else {
+              //  TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findBySenderAccountNo(receiverAcctNo);
+                TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
+                transactionDetailEntity.setSenderAccountNo(receiverAcctNo);
+                transactionDetailEntity.setReceiverAccountNo(receiverAcctNo);
+                transactionDetailEntity.setTransferredAmount(depositedAmount);
+                transactionDetailEntity.setDateTime(Instant.now());
+                transactionDetailRepository.save(transactionDetailEntity);
+
+                // user account need to be updated with the transferred amount
+                userAccountEntity.setBalanceAmount(userAccountEntity.getBalanceAmount() + depositedAmount);
+                userAccountRepository.save(userAccountEntity);
+
+                return "Deposited Successfully into your accountNo " + receiverAcctNo + "Balance Amount " + depositedAmount;
+            }
+        }catch (Exception e){
+            return e.getMessage();
         }
+
     }
 
     @Override
     public String makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount) {
         TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findByReceiverAccountNo(receiverAcctNo);
 
-        // must check whether user has a account first in order to send >> usertable by accountNo
+        // don't need to check for account availability
         // checks whether you have money in account to transfer
         // if you transfer you the money you balance needed to be updated
+
+        // if you have a account at the bank dummy then the transferred amount will be deducted
+            // first check whether you have that much of amount to transfer else not sufficient amount to transfer
+        // if you don't
         UserAccountEntity userAccountEntity = userAccountRepository.getAccountBalanceByAccountNo(senderAcctNo);
 
         if (userAccountEntity == null) {

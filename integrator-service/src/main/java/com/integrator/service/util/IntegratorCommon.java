@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.print.DocFlavor;
+
 public interface IntegratorCommon {
 
     String SUCCESS = "Success";
@@ -22,6 +24,7 @@ public interface IntegratorCommon {
 
     String MAKE_FUND_TRANSFER_TO_OTHER_ACCT = "/makeFundTransferToOtherAccount";
 
+    String ACCOUNT_DOESNT_EXISTS = "You don't have a account!!!";
 
 //    @GetMapping("/getAccountBalanceByAccountNo/{accountNo}")
 //    @PathVariable Integer accountNo

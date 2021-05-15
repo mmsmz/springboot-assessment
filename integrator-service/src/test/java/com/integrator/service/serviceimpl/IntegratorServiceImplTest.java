@@ -27,7 +27,7 @@ public class IntegratorServiceImplTest {
         UserAccountEntity userAccountEntity = spy(UserAccountEntity.class);
         userAccountEntity.setUserId("111");
         userAccountEntity.setAccountNo(123456789);
-        userAccountEntity.setBalanceAmount(85000);
+        userAccountEntity.setBalanceAmount(85000d);
 
         Mockito.when(userAccountRepository.getAccountBalanceByAccountNo(accountNo)).thenReturn(userAccountEntity);
 
