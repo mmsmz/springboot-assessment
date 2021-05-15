@@ -8,6 +8,7 @@ import com.integrator.service.repository.AuditEventRepository;
 import com.integrator.service.repository.TransactionDetailRepository;
 import com.integrator.service.repository.UserAccountRepository;
 import com.integrator.service.util.IntegratorCommon;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -89,7 +90,7 @@ public class IntegratorServiceImpl implements IntegratorService {
             if (userAccountEntity == null) {
                 return IntegratorCommon.ACCOUNT_DOESNT_EXISTS;
             } else {
-              //  TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findBySenderAccountNo(receiverAcctNo);
+            //  TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findBySenderAccountNo(receiverAcctNo);
                 TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
                 transactionDetailEntity.setSenderAccountNo(receiverAcctNo);
                 transactionDetailEntity.setReceiverAccountNo(receiverAcctNo);
@@ -98,8 +99,8 @@ public class IntegratorServiceImpl implements IntegratorService {
                 transactionDetailRepository.save(transactionDetailEntity);
 
                 // user account need to be updated with the transferred amount
-                userAccountEntity.setBalanceAmount(userAccountEntity.getBalanceAmount() + depositedAmount);
-                userAccountRepository.save(userAccountEntity);
+               // userAccountEntity.setBalanceAmount(userAccountEntity.getBalanceAmount() + depositedAmount);
+                // userAccountRepository.save(userAccountEntity);
 
                 return "Deposited Successfully into your accountNo " + receiverAcctNo + "Balance Amount " + depositedAmount;
             }
@@ -111,25 +112,26 @@ public class IntegratorServiceImpl implements IntegratorService {
 
     @Override
     public String makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount) {
-        TransactionDetailEntity transactionDetailEntity = transactionDetailRepository.findByReceiverAccountNo(receiverAcctNo);
 
         // don't need to check for account availability
         // checks whether you have money in account to transfer
-        // if you transfer you the money you balance needed to be updated
+        String senders_balanceAmount = getAccountBalanceByAccountNo(senderAcctNo);
 
-        // if you have a account at the bank dummy then the transferred amount will be deducted
-            // first check whether you have that much of amount to transfer else not sufficient amount to transfer
-        // if you don't
-        UserAccountEntity userAccountEntity = userAccountRepository.getAccountBalanceByAccountNo(senderAcctNo);
+        if(Double.parseDouble(senders_balanceAmount)>=depositedAmount) {
+            TransactionDetailEntity transactionEntity = new TransactionDetailEntity();
+            transactionEntity.setSenderAccountNo(senderAcctNo);
+            transactionEntity.setReceiverAccountNo(receiverAcctNo);
+            transactionEntity.setTransferredAmount(depositedAmount);
+            transactionEntity.setDateTime(Instant.now());
+            transactionDetailRepository.save(transactionEntity);
+            return "Transferred To Other Account Successfully";
 
-        if (userAccountEntity == null) {
-            return "You dont have a account!!!";
-        } else {
-//            if(userAccountEntity.getBalanceAmount()>=depositedAmount) {
-            transactionDetailEntity.setReceiverAccountNo(senderAcctNo);
-            transactionDetailRepository.save(transactionDetailEntity);
-            return null;
         }
+        else {
+            return "You don't have sufficient amount in the account";
+        }
+
+
     }
 
     @Override
