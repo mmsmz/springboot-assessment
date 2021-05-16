@@ -1,3 +1,5 @@
+Note:: i couldnt implement soap call for the coreBanking-service since i dont have enough experience on that, but i have implement the RestTemplate in the core banking to manupilate with data.. i couldnt learn due lack of time and work load. 
+
 MS1 DummyCoreBanking-Service  ->> localhost:9900 
 
 MS2 Integrator-Service        ->> localhost:9901 + Swagger ->> http://localhost:9901/swagger-ui.html#/
@@ -50,6 +52,3 @@ Response::
   "message": "Success",
   "data": "Transferred Amount Successfully"
 }
-
-
-Note:: i couldnt implement soap call for the coreBanking-service since i dont have enough experience on that, but i have implement the RestTemplate in the core banking to manupilate with data.. i couldnt learn due lack of time and work load. 
