@@ -28,7 +28,7 @@ public class IntegratorController {
     @GetMapping(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO)
     public ResponseEntity<ResponseDto> getAccountBalanceByAccountNo(@PathVariable Integer accountNo){
         // saves API with parameters for Audit Events
-       // integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, accountNo.toString());
+        integratorService.saveAPIForAudit(IntegratorCommon.GET_ACCT_BALANCE_BY_ACCTNO, accountNo.toString());
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.getAccountBalanceByAccountNo(accountNo));
@@ -37,7 +37,7 @@ public class IntegratorController {
 
     @GetMapping(IntegratorCommon.GET_TOTALACCT_BALANCE_BY_USERID)
     public ResponseEntity<ResponseDto> getTotalAcctBalanceByUserId(@PathVariable String userId){
-      //  integratorService.saveAPIForAudit(IntegratorCommon.GET_TOTALACCT_BALANCE_BY_USERID, userId);
+        integratorService.saveAPIForAudit(IntegratorCommon.GET_TOTALACCT_BALANCE_BY_USERID, userId);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
         responseDto.setData(integratorService.getTotalAcctBalanceByUserId(userId));
@@ -50,7 +50,7 @@ public class IntegratorController {
         Map<String,String> mapping = new HashMap<>();
         mapping.put("accountNo = ", receiverAcctNo.toString());
         mapping.put("depositedAmount = ", depositedAmount.toString());
-       // integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OWN_ACCT, mapping.toString());
+        integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OWN_ACCT, mapping.toString());
 
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);
@@ -67,7 +67,7 @@ public class IntegratorController {
         mapping.put("senderAcctNo = ", senderAcctNo.toString());
         mapping.put("receiverAcctNo = ", receiverAcctNo.toString());
         mapping.put("depositedAmount = ", depositedAmount.toString());
-       // integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OTHER_ACCT, mapping.toString());
+        integratorService.saveAPIForAudit(IntegratorCommon.MAKE_FUND_TRANSFER_TO_OTHER_ACCT, mapping.toString());
 
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(IntegratorCommon.SUCCESS);

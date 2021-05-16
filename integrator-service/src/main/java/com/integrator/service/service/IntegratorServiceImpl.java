@@ -90,7 +90,7 @@ public class IntegratorServiceImpl implements IntegratorService {
                 transactionDetailEntity.setDateTime(Instant.now());
                 transactionDetailRepository.save(transactionDetailEntity);
 
-                return "Deposited Successfully into your accountNo " + receiverAcctNo + "Balance Amount " + depositedAmount;
+                return "Deposited Successfully into your accountNo = " + receiverAcctNo + " & Deposited Amount = " + depositedAmount;
             }
         }catch (Exception e){
             return e.getMessage();

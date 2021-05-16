@@ -1,6 +1,6 @@
-DummyCoreBanking-Service  ->> localhost:9900 
+MS1 DummyCoreBanking-Service  ->> localhost:9900 
 
-Integrator-Service   	  ->> localhost:9901 + Swagger ->> http://localhost:9901/swagger-ui.html#/
+MS2 Integrator-Service        ->> localhost:9901 + Swagger ->> http://localhost:9901/swagger-ui.html#/
 
 1. /getAccountBalanceByAccountNo/{accountNo} 
 
@@ -18,3 +18,38 @@ Response::
 Request::
 userID= 222
 
+Response::
+{
+  "message": "Success",
+  "data": 102000
+}
+
+3. /makeFundTransferToOwnAccount
+Request::
+depositedAmount = 564
+receiverAcctNo= 985687542
+
+
+Response::
+{
+  "message": "Success",
+  "data": "Deposited Successfully into your accountNo = 985687542 & Deposited Amount = 564.0"
+}
+
+
+4. /makeFundTransferToOtherAccount
+
+Request::
+depositedAmount = 1526
+receiverAcctNo = 147852369
+senderAcctNo  = 456789456
+
+
+Response::
+{
+  "message": "Success",
+  "data": "Transferred Amount Successfully"
+}
+
+
+Note:: i couldnt implement soap call for the coreBanking-service since i dont have enough experience on that, but i have implement the RestTemplate in the core banking to manupilate with data.. i couldnt learn due lack of time and work load. 
