@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
+
 
 @RestController
 @RequestMapping(name = "coreBank")
@@ -44,7 +46,7 @@ public class CoreBankController {
 
     @PostMapping(CoreBankCommon.MAKE_FUND_TRANSFER_TO_OWN_ACCT)
     public ResponseEntity<ResponseDto> makeFundTransferToOwnAccount(@RequestParam Integer receiverAcctNo,
-                                                                  @RequestParam Double  depositedAmount){
+                                                                    @RequestParam Double  depositedAmount) throws URISyntaxException {
 
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(CoreBankCommon.SUCCESS);

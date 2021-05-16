@@ -3,6 +3,7 @@ package com.dummycorebanking.service.service;
 import com.dummycorebanking.service.dto.ResponseDto;
 import com.dummycorebanking.service.util.CoreBankCommon;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,15 +39,36 @@ public class CoreBankServiceImpl implements CoreBankService {
     @Override
     public String makeFundTransferOwnAccount(Integer receiverAcctNo, double depositedAmount) {
         String api = "/makeFundTransferToOwnAccount?receiverAcctNo="+receiverAcctNo + "&depositedAmount=" + depositedAmount;
-        ResponseDto responseDto = restTemplate.getForEntity(BASEURL+api, ResponseDto.class).getBody();
-        return responseDto.getData().toString();
+
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<ResponseDto> requestEntity = new HttpEntity<>(requestHeaders);
+
+        ResponseEntity<ResponseDto> responseEntity = restTemplate.exchange(
+                BASEURL+api,
+                HttpMethod.POST,
+                requestEntity,
+                ResponseDto.class
+        );
+
+        return responseEntity.getBody().getData().toString();
     }
 
     @Override
     public String makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount) {
-      //  String api = "/makeFundTransferToOtherAccount?senderAcctNo="+senderAcctNo+"&receiverAcctNo="+receiverAcctNo + "&depositedAmount=" + depositedAmount;
-        ResponseDto responseDto = restTemplate.getForEntity(BASEURL, ResponseDto.class).getBody();
-        return responseDto.getData().toString();
+        String api = "/makeFundTransferToOtherAccount?senderAcctNo="+senderAcctNo+"&receiverAcctNo="+receiverAcctNo + "&depositedAmount=" + depositedAmount;
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<ResponseDto> requestEntity = new HttpEntity<>(requestHeaders);
+
+        ResponseEntity<ResponseDto> responseEntity = restTemplate.exchange(
+                BASEURL+api,
+                HttpMethod.POST,
+                requestEntity,
+                ResponseDto.class
+        );
+
+        return responseEntity.getBody().getData().toString();
     }
 
 
