@@ -44,7 +44,9 @@ public class CoreBankServiceImpl implements CoreBankService {
 
     @Override
     public String makeFundTransferToOtherAccount(Integer senderAcctNo, Integer receiverAcctNo, double depositedAmount) {
-        return null;
+      //  String api = "/makeFundTransferToOtherAccount?senderAcctNo="+senderAcctNo+"&receiverAcctNo="+receiverAcctNo + "&depositedAmount=" + depositedAmount;
+        ResponseDto responseDto = restTemplate.getForEntity(BASEURL, ResponseDto.class).getBody();
+        return responseDto.getData().toString();
     }
 
 
